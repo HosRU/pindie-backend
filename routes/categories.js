@@ -1,7 +1,8 @@
 const categoriesRoute = require("express").Router();
 
-categoriesRoute.get("/categories", (req, res) => {
-    res.status(200).send("Categories Route")
-})
+const findAllCategories = require("../middlewares/categories");
+const sendAllCategories = require("../controllers/categories");
+
+categoriesRoute.get("/categories", findAllCategories, sendAllCategories);
 
 module.exports = categoriesRoute;
