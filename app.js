@@ -1,8 +1,9 @@
 const bodyParser = require("body-parser");
-const http = require("http");
 const routes = require("./routes/index");
 const cors = require("./middlewares/cors");
-const connectToDataBase = require("./database/connect")
+const connectToDataBase = require("./database/connect");
+const express = require("express");
+const path = require("path");
 
 const PORT = 3000;
 const app = express();
