@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const userModel = require('./user');
+const categoryModel = require('./category');
+
 const gameSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -25,10 +28,12 @@ const gameSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: categoryModel,
     }],
+
     users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: userModel,
