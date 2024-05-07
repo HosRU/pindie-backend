@@ -1,9 +1,11 @@
 const bodyParser = require("body-parser");
-const routes = require("./routes/index");
 const cors = require("./middlewares/cors");
 const connectToDataBase = require("./database/connect");
 const express = require("express");
 const path = require("path");
+const usersRouter = require('./routes/users');
+const gamesRouter = require('./routes/games');
+const categoriesRouter = require('./routes/categories');
 
 const PORT = 3000;
 const app = express();
@@ -14,7 +16,9 @@ app.use(
     cors,
     bodyParser.json(),
     express.static(path.join(__dirname, "public")),
-    routes,
+    usersRouter,
+    gamesRouter,
+    categoriesRouter
 )
 
 server.listen(PORT)
