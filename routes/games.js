@@ -1,7 +1,8 @@
 const gamesRoute = require("express").Router();
 
-gamesRoute.get("/games", (req, res) => {
-    res.status(200).send("Games Route")
-})
+const findAllGames = require("../middlewares/game");
+const sendAllGames = require("../controllers/games");
+
+gamesRoute.get("/games", findAllGames, sendAllGames);
 
 module.exports = gamesRoute;
