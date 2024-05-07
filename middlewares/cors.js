@@ -1,6 +1,6 @@
 function cors(req, res, next){
     const {origin} = req.headers;
-    res.headers('Access-Control-Allow-Origin', 'localhost:3000')
+    res.header('Access-Control-Allow-Origin', 'localhost:3000')
     next()
 }   
 

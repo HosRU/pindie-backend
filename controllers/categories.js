@@ -1,5 +1,5 @@
 const sendAllCategories = (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-type', 'application/json');
     res.end(JSON.stringify(req.categoriesArray))
 };
 

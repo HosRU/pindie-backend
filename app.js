@@ -21,4 +21,4 @@ app.use(
     categoriesRouter
 )
 
-server.listen(PORT)
+app.listen(PORT)
