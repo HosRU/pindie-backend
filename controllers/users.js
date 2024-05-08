@@ -3,4 +3,9 @@ const sendAllUsers = (req, res) => {
     res.end(JSON.stringify(req.usersArray))
 }
 
-module.exports = sendAllUsers;
+const sendCreateUser = (req, res) => {
+    res.setHeader('Content-type', 'application/json');
+    res.end(JSON.stringify(req.user))
+}
+
+module.exports = {sendAllUsers, sendCreateUser};

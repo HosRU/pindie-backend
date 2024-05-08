@@ -15,4 +15,4 @@ const createCategory = async (req, res, next) => {
     }
 }
 
-module.exports = findAllCategories;
+module.exports = {findAllCategories, createCategory};

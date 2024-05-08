@@ -15,4 +15,4 @@ const createUser = async (req, res, next) => {
     }
 }
 
-module.exports = findAllUsers;
+module.exports = {findAllUsers, createUser};

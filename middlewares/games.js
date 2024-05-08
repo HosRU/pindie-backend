@@ -16,4 +16,4 @@ const createGame = async (req, res, next) => {
     }
 }
 
-module.exports = findAllGames;
+module.exports = {findAllGames, createGame};
