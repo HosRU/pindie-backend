@@ -2,7 +2,6 @@ const categories = require("../models/category");
 
 const findAllCategories = async (req, res, next) => {
     req.categoriesArray = await categories.find({});
-    console.log(req.categoriesArray)
     next();
 }
 
@@ -59,4 +58,13 @@ const checkIsCategoryExists = async (req, res, next) => {
     }
 }
 
-module.exports = findAllCategories, createCategory, findCategoryById, updateCategory, deleteCategories, checkIsCategoryExists;
+const checkEmptyName = async (req, res, next) => {
+    if(!req.body.name){
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Введите название категории" }));
+    } else {
+        next();
+    }
+}
+
+module.exports = findAllCategories, createCategory, findCategoryById, updateCategory, deleteCategories, checkIsCategoryExists, checkEmptyName;
