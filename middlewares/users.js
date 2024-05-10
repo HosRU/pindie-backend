@@ -1,7 +1,7 @@
 const users = require("../models/user");
 
 const findAllUsers = async (req, res, next) => {
-    req.userArray = await users.find({});
+    req.usersArray = await users.find({});
     next();
 }
 
@@ -25,7 +25,14 @@ const findUserId = async (req, res, next) => {
     }
 }
 
-module.exports = {
-    findAllUsers,
-    createUser,
-};
+const updateUser = async (req, res, next) => {
+    try{
+        req.user = await users.findByIdAndUpdate(req.params.id, req.body);
+        next();
+    } catch(error) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify({message: "Не удалось обновить пользователя"}));
+    }
+}
+
+module.exports = findAllUsers, createUser, findUserId, updateUser;

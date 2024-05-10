@@ -6,7 +6,15 @@ const sendAllUsers = require("../controllers/users");
 const createUser = require("../middlewares/users");
 const sendCreateUser = require("../controllers/users");
 
+const findUserId = require("../middlewares/users");
+const sendUserId = require("../controllers/users");
+
+const updateUser = require("../middlewares/users");
+const sendUpdateUser = require("../controllers/users");
+
 usersRouter.get("/users", findAllUsers, sendAllUsers);
-usersRoute.post("/users", findAllUsers, createUser, sendCreateUser);
+usersRouter.post("/users", findAllUsers, createUser, sendCreateUser);
+usersRouter.get("/users/:id", findUserId, sendUserId);
+usersRouter.put("/users/:id", updateUser, sendUpdateUser);
 
 module.exports = usersRouter;

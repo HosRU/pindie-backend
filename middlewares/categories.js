@@ -1,7 +1,8 @@
 const categories = require("../models/category");
 
 const findAllCategories = async (req, res, next) => {
-    req.categoriesArray = await categories.find({})
+    req.categoriesArray = await categories.find({});
+    console.log(req.categoriesArray)
     next();
 }
 
@@ -25,4 +26,14 @@ const findCategoryById = async (req, res, next) => {
     }
 }
 
-module.exports = {findAllCategories, createCategory, findCategoryById};
+const updateCategory = async (req, res) => {
+    try{
+        req.category = await categories.findByIdAndUpdate(req.params.id, req.body);
+        next();
+    } catch (error) {
+        res.setHeader('Content-type', 'application/json');
+        res.status(400).send(JSON.stringify({ message: "Ошибка обновления категории" }));
+    }
+}
+
+module.exports = findAllCategories, createCategory, findCategoryById, updateCategory;

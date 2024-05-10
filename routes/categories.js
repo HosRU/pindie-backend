@@ -6,7 +6,15 @@ const sendAllCategories = require("../controllers/categories");
 const createCategory = require("../middlewares/categories");
 const sendCreateCategory = require('../controllers/categories');
 
+const findCategoryById = require("../middlewares/categories");
+const sendCategoryId = require("../controllers/categories");
+
+const updateCategory = require("../middlewares/categories");
+const sendUpdateCategory = require("../controllers/categories");
+
 categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
 categoriesRouter.post("/categories", findAllCategories, createCategory, sendCreateCategory);
+categoriesRouter.get("categories/:id", findCategoryById, sendCategoryId);
+categoriesRouter.put("categories/:id", updateCategory, sendUpdateCategory);
 
 module.exports = categoriesRouter;
