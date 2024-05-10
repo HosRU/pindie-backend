@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const DB_URL = 'mongodb://localhost:27017/pindie';
 
-async function connectToDataBase(){
+async function connectToDatabase(){
     try{
         await mongoose.connect(DB_URL);
         console.log("Успешное подключение к БД")
@@ -11,4 +11,4 @@ async function connectToDataBase(){
     }
 }
 
-module.exports = connectToDataBase;
+module.exports = connectToDatabase;

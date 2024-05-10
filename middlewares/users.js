@@ -1,7 +1,7 @@
 const users = require("../models/user");
 
 const findAllUsers = async (req, res, next) => {
-    req.usersArray = await users.find({});
+    req.userArray = await users.find({});
     next();
 }
 
@@ -27,6 +27,5 @@ const findUserId = async (req, res, next) => {
 
 module.exports = {
     findAllUsers,
-    createUser, 
-    findUserId
+    createUser,
 };

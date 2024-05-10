@@ -8,4 +8,4 @@ const sendCreateCategory = (req, res) => {
     res.end(JSON.stringify(req.category))
 }
 
-module.exports = {sendAllCategories, sendCreateCategory};
+module.exports = {sendAllCategories, sendCreateCategory}
