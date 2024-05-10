@@ -18,4 +18,9 @@ const sendUpdateUser = (req, res) => {
     res.status(200).send(JSON.stringify({ message: "Пользователь обновлен" }));
 }
 
-module.exports = sendAllUsers, sendCreateUser, sendUserId, sendUpdateUser;
+const sendDeleteUser = (req, res) => {
+    res.setHeader('Content-type', 'application/json');
+    res.status(200).send(JSON.stringify({ message: "Пользователь удалён" }));
+}
+
+module.exports = sendAllUsers, sendCreateUser, sendUserId, sendUpdateUser, sendDeleteUser;

@@ -12,9 +12,15 @@ const sendGameById = require("../controllers/games");
 const updateGame = require("../middlewares/games");
 const sendGameUpdate = require("../controllers/games");
 
+const deleteGame = require("../middlewares/games");
+const sendDeleteGame = require("../controllers/games");
+
+const checkEmptyFields = require("../middlewares/games");
+
 gamesRoute.get("/games", findAllGames, sendAllGames);
-gamesRoute.post("/games", findAllGames, createGame, sendCreateGame);
+gamesRoute.post("/games", findAllGames, checkEmptyFields, createGame, sendCreateGame);
 gamesRoute.get("/games/:id", findGameId, sendGameById);
 gamesRoute.put("/games/:id", updateGame, sendGameUpdate);
+gamesRoute.delete("/games/:id", deleteGame, sendDeleteGame)
 
 module.exports = gamesRoute;

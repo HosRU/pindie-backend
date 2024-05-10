@@ -42,4 +42,27 @@ const updateGame = async (req, res, next) => {
     }
 }
 
-module.exports = findAllGames, createGame, findGameId, updateGame;
+const deleteGame = async (req, res, next) => {
+    try{
+        req.game = await games.findByIdAndDelete(req.params.id);
+        next();
+    } catch (error) {
+        res.setHeader('Content-type', 'application/json');
+        res.status(400).send(JSON.stringify({message: "Ошибка удаления игры"}))
+    }
+}
+
+const checkEmptyFields = async (req, res, next) => {
+    if(!req.body.title ||
+        !req.body.description ||
+        !req.body.image ||
+        !req.body.link ||
+        !req.body.developer) {
+            res.setHeader("Content-Type", "application/json");
+            res.status(400).send(JSON.stringify({ message: "Заполни все поля" }));
+        } else {
+            next()
+        }
+}
+
+module.exports = findAllGames, createGame, findGameId, updateGame, deleteGame, checkEmptyFields;

@@ -35,4 +35,14 @@ const updateUser = async (req, res, next) => {
     }
 }
 
-module.exports = findAllUsers, createUser, findUserId, updateUser;
+const deleteUser = async (req, res, next) => {
+    try{
+        req.user = await users.findByIdAndDelete(req.params.id);
+        next();
+    } catch (error){
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify({message: "Не удалось удалить пользователя"}));
+    }
+}
+
+module.exports = findAllUsers, createUser, findUserId, updateUser, deleteUser;
