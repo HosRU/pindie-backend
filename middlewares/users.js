@@ -7,12 +7,26 @@ const findAllUsers = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try{
-        req.user = users.create(req.body);
+        req.user = await users.create(req.body);
         next();
     } catch (error) {
-        res.setHeader('Content-type', 'application/json');
+        res.setHeader('Content-Type', 'application/json');
         res.status(400).send(JSON.stringify({message: "Ошибка создания пользователя"}))
     }
 }
 
-module.exports = {findAllUsers, createUser};
+const findUserId = async (req, res, next) => {
+    try{
+        req.user = await users.findById(req.params.id);
+        next();
+    } catch (error) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify({message: "Не удалось найти пользователя"}));
+    }
+}
+
+module.exports = {
+    findAllUsers,
+    createUser, 
+    findUserId
+};

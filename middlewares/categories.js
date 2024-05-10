@@ -15,4 +15,14 @@ const createCategory = async (req, res, next) => {
     }
 }
 
-module.exports = {findAllCategories, createCategory};
+const findCategoryById = async (req, res, next) => {
+    try{
+        req.category = await categories.findById(req.params.id);
+        next();
+    } catch (error) {
+        res.setHeader('Content-type', 'application/json');
+        res.status(404).send(JSON.stringify({message: "Не удалось найти категорию"}))
+    }
+}
+
+module.exports = {findAllCategories, createCategory, findCategoryById};
