@@ -65,4 +65,27 @@ const checkEmptyFields = async (req, res, next) => {
         }
 }
 
-module.exports = findAllGames, createGame, findGameId, updateGame, deleteGame, checkEmptyFields;
+const checkIfCategoriesAvaliable = async (req, res, next) => {
+    if(!req.body.categories || req.body.categories.length === 0) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Выбери хотя бы одну категорию" }));
+    } else {
+        next();
+    }
+}
+
+const checkIfUsersAreSafe = (req, res) => {
+    if(!req.body.users){
+        next();
+        return;
+    }
+    if (req.body.users.length - 1 === req.game.users.length) {
+        next();
+        return;
+      } else {
+        res.setHeader("Content-Type", "application/json");
+            res.status(400).send(JSON.stringify({ message: "Нельзя удалять пользователей или добавлять больше одного пользователя" }));
+      }
+}
+
+module.exports = findAllGames, createGame, findGameId, updateGame, deleteGame, checkEmptyFields, checkIfCategoriesAvaliable, checkIfUsersAreSafe;

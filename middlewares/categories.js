@@ -46,4 +46,17 @@ const deleteCategories = async (req, res, next) => {
     }
 }
 
-module.exports = findAllCategories, createCategory, findCategoryById, updateCategory, deleteCategories;
+const checkIsCategoryExists = async (req, res, next) => {
+    const inArray = req.categoriesArray.find((category) => {
+        return req.body.name === category.name;
+    })
+
+    if(inArray){
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Категория с таким названием уже существует" }));
+    } else {
+        next()
+    }
+}
+
+module.exports = findAllCategories, createCategory, findCategoryById, updateCategory, deleteCategories, checkIsCategoryExists;
