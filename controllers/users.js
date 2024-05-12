@@ -23,9 +23,4 @@ const sendDeleteUser = (req, res) => {
   res.status(200).send(JSON.stringify({ message: "Пользователь удалён" }));
 };
 
-module.exports = 
-  sendAllUsers,
-  sendCreateUser,
-  sendUserId,
-  sendUpdateUser,
-  sendDeleteUser
+module.exports = sendAllUsers,sendCreateUser,sendUserId,sendUpdateUser,sendDeleteUser;

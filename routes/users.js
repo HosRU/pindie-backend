@@ -17,6 +17,8 @@ const sendDeleteUser = require("../controllers/users");
 const {checkEmptyNameAndEmail} = require("../middlewares/users");
 const {checkEmptyNameAndEmailAndPassword} = require("../middlewares/users");
 const {filterPassword} = require("../middlewares/users");
+const {checkIsUserExists} = require("../middlewares/users");
+const {hashPassword} = require("../middlewares/users");
 
 usersRouter.get("/users", findAllUsers, filterPassword, sendAllUsers);
 usersRouter.post("/users", findAllUsers, checkIsUserExists, checkEmptyNameAndEmailAndPassword, hashPassword, createUser, sendCreateUser);

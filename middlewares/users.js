@@ -101,6 +101,10 @@ const hashPassword = async (req, res, next) => {
   }
 }
 
+const checkIsUserExists = async  () => {
+
+}
+
 module.exports = {
   findAllUsers,
   createUser,
@@ -109,6 +113,7 @@ module.exports = {
   deleteUser,
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
+  checkIsUserExists,
   filterPassword,
-  hashPassword
+  hashPassword,
 };
