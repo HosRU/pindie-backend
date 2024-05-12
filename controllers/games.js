@@ -1,26 +1,34 @@
 const sendAllGames = (req, res) => {
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify(req.gamesArray))
-}
+  console.log("Отобразил все доступные игры");
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.gamesArray));
+};
 
 const sendCreateGame = (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(req.game))
-}
+  console.log("Добавил игру в БД");
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.game));
+};
 
 const sendGameById = (req, res) => {
-    res.setHeader('Content-type', 'application/json');
-    res.end(JSON.stringify(req.game))
-}
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.game));
+};
 
 const sendGameUpdate = (req, res) => {
-    res.setHeader("Content-type", "application/json");
-    res.status(200).send(JSON.stringify({ message: "Игра обновлена" }));
-}
+  res.setHeader("Content-Type", "application/json");
+  res.end({ message: "Игра обновлена" });
+};
 
 const sendDeleteGame = (req, res) => {
-    res.setHeader('Content-type', 'application/json');
-    res.end(JSON.stringify(req.game))
-}
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.game));
+};
 
-module.exports = sendAllGames, sendCreateGame, sendGameById, sendGameUpdate, sendDeleteGame;
+module.exports = 
+  sendAllGames,
+  sendCreateGame,
+  sendGameById,
+  sendGameUpdate,
+  sendDeleteGame
+

@@ -1,7 +1,7 @@
-const game = require("../models/game");
+const games = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
-  req.gamesArray = await game.find({}).populate("categories").populate({
+  req.gamesArray = await games.find({}).populate("categories").populate({
     path: "users",
     select: "-password",
   });
@@ -9,18 +9,21 @@ const findAllGames = async (req, res, next) => {
 };
 
 const createGame = async (req, res, next) => {
+  console.log("POST /games");
   try {
-    req.game = await game.create(req.body);
+    console.log(req.body);
+    req.game = await games.create(req.body);
+    console.log(req.game);
     next();
   } catch (error) {
-    res.setHeader("Content-type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify({ message: "Ошибка создания игры" }));
   }
 };
 
 const findGameId = async (req, res, next) => {
   try {
-    req.game = await game
+    req.game = await games
       .findById(req.params.id)
       .populate("categories")
       .populate({
@@ -29,14 +32,15 @@ const findGameId = async (req, res, next) => {
       });
     next();
   } catch (error) {
-    res.setHeader("Content-type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify({ message: "Не удалось найти игру" }));
   }
 };
 
 const updateGame = async (req, res, next) => {
+  console.log("PUT /games");
   try {
-    req.game = game.findByIdAndUpdate(req.params.id, req.body);
+    req.game = await games.findByIdAndUpdate(req.params.id, req.body);
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -45,11 +49,12 @@ const updateGame = async (req, res, next) => {
 };
 
 const deleteGame = async (req, res, next) => {
+  console.log("DELETE /games");
   try {
-    req.game = await game.findByIdAndDelete(req.params.id);
+    req.game = await games.findByIdAndDelete(req.params.id);
     next();
   } catch (error) {
-    res.setHeader("Content-type", "application/json");
+    res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify({ message: "Ошибка удаления игры" }));
   }
 };
@@ -117,4 +122,14 @@ const checkIsGameExists = async (req, res, next) => {
     }
 }
 
-module.exports = findAllGames,createGame,findGameId,updateGame,deleteGame,checkEmptyFields,checkIfCategoriesAvaliable,checkIfUsersAreSafe,checkIsGameExists;
+module.exports = {
+  findAllGames,
+  createGame,
+  findGameId,
+  updateGame,
+  deleteGame,
+  checkEmptyFields,
+  checkIsGameExists,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable
+};
