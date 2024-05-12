@@ -1,7 +1,7 @@
-const games = require("../models/game");
+const game = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
-  req.gamesArray = await games.find({}).populate("categories").populate({
+  req.gamesArray = await game.find({}).populate("categories").populate({
     path: "users",
     select: "-password",
   });
@@ -10,7 +10,7 @@ const findAllGames = async (req, res, next) => {
 
 const createGame = async (req, res, next) => {
   try {
-    req.game = await games.create(req.body);
+    req.game = await game.create(req.body);
     next();
   } catch (error) {
     res.setHeader("Content-type", "application/json");
@@ -20,7 +20,7 @@ const createGame = async (req, res, next) => {
 
 const findGameId = async (req, res, next) => {
   try {
-    req.game = await games
+    req.game = await game
       .findById(req.params.id)
       .populate("categories")
       .populate({
@@ -36,7 +36,7 @@ const findGameId = async (req, res, next) => {
 
 const updateGame = async (req, res, next) => {
   try {
-    req.game = games.findByIdAndUpdate(req.params.id, req.body);
+    req.game = game.findByIdAndUpdate(req.params.id, req.body);
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -46,7 +46,7 @@ const updateGame = async (req, res, next) => {
 
 const deleteGame = async (req, res, next) => {
   try {
-    req.game = await games.findByIdAndDelete(req.params.id);
+    req.game = await game.findByIdAndDelete(req.params.id);
     next();
   } catch (error) {
     res.setHeader("Content-type", "application/json");
