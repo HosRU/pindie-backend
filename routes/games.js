@@ -21,11 +21,12 @@ const {checkIfUsersAreSafe} = require("../middlewares/games");
 const {checkIsGameExists} = require("../middlewares/games");
 
 const {checkAuth} = require("../middlewares/checkAuth");
+const {checkIsVoteRequest} = require("../middlewares/games");
 
 gamesRouter.get("/games", findAllGames, sendAllGames);
 gamesRouter.post("/games", findAllGames, checkIsGameExists, checkIfCategoriesAvaliable, checkEmptyFields, checkAuth, createGame, sendCreateGame);
 gamesRouter.get("/games/:id", findGameId, sendGameById);
-gamesRouter.put("/games/:id", findGameId, checkIfUsersAreSafe, checkIfCategoriesAvaliable, checkEmptyFields, checkAuth, updateGame, sendGameUpdate);
+gamesRouter.put("/games/:id", findGameId, checkIsVoteRequest, checkIfUsersAreSafe, checkIfCategoriesAvaliable, checkEmptyFields, checkAuth, updateGame, sendGameUpdate);
 gamesRouter.delete("/games/:id", checkAuth, deleteGame, sendDeleteGame)
 
 module.exports = gamesRouter;
