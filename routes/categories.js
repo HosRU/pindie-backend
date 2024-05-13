@@ -18,7 +18,7 @@ const sendDeleteCategory = require("../controllers/categories");
 const {checkIsCategoryExists} = require("../middlewares/categories");
 const {checkEmptyName} = require("../middlewares/categories");
 
-const checkAuth = require("../middlewares/checkAuth");
+const {checkAuth} = require("../middlewares/checkAuth");
 
 categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
 categoriesRouter.post("/categories", findAllCategories, checkIsCategoryExists, checkEmptyName, checkAuth, createCategory, sendCreateCategory);

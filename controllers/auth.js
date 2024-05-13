@@ -1,5 +1,6 @@
 const users = require("../models/user");
 const jwt = require("jsonwebtoken");
+const path = require('path');
 
 const auth = (req, res) => {
   const { email, password } = req.body;
@@ -21,4 +22,20 @@ const auth = (req, res) => {
     });
 };
 
-module.exports = auth;
+const sendIndex = (req, res) => {
+  if(req.cookies.jwt){
+    try{
+      jwt.verify(req.cookies.jwt, "some-secret-key");
+      return res.redirect("/admin/dashboard");
+    } catch (error){
+      res.sendFile(path.join(__dirname, "../public/index.html"));
+    }
+  }
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+}
+
+const sendDashboard = (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/admin/dashboard.html"));
+}
+
+module.exports = {auth, sendIndex, sendDashboard};

@@ -20,7 +20,7 @@ const {filterPassword} = require("../middlewares/users");
 const {checkIsUserExists} = require("../middlewares/users");
 const {hashPassword} = require("../middlewares/users");
 
-const checkAuth = require("../middlewares/checkAuth");
+const {checkAuth} = require("../middlewares/checkAuth");
 const sendMe = require("../controllers/users");
 
 usersRouter.get("/me", checkAuth, sendMe); 

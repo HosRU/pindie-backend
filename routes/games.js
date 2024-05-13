@@ -20,7 +20,7 @@ const {checkIfCategoriesAvaliable} = require("../middlewares/games");
 const {checkIfUsersAreSafe} = require("../middlewares/games");
 const {checkIsGameExists} = require("../middlewares/games");
 
-const checkAuth = require("../middlewares/checkAuth");
+const {checkAuth} = require("../middlewares/checkAuth");
 
 gamesRouter.get("/games", findAllGames, sendAllGames);
 gamesRouter.post("/games", findAllGames, checkIsGameExists, checkIfCategoriesAvaliable, checkEmptyFields, checkAuth, createGame, sendCreateGame);
