@@ -20,10 +20,14 @@ const {filterPassword} = require("../middlewares/users");
 const {checkIsUserExists} = require("../middlewares/users");
 const {hashPassword} = require("../middlewares/users");
 
+const checkAuth = require("../middlewares/checkAuth");
+const sendMe = require("../controllers/users");
+
+usersRouter.get("/me", checkAuth, sendMe); 
 usersRouter.get("/users", findAllUsers, filterPassword, sendAllUsers);
-usersRouter.post("/users", findAllUsers, checkIsUserExists, checkEmptyNameAndEmailAndPassword, hashPassword, createUser, sendCreateUser);
+usersRouter.post("/users", findAllUsers, checkIsUserExists, checkEmptyNameAndEmailAndPassword, checkAuth, hashPassword, createUser, sendCreateUser);
 usersRouter.get("/users/:id", findUserId, filterPassword, sendUserId);
-usersRouter.put("/users/:id", findUserId, checkEmptyNameAndEmail, updateUser, sendUpdateUser);
-usersRouter.delete("/users/:id", findUserId, deleteUser, sendDeleteUser);
+usersRouter.put("/users/:id", findUserId, checkEmptyNameAndEmail, checkAuth, updateUser, sendUpdateUser);
+usersRouter.delete("/users/:id", checkAuth, deleteUser, sendDeleteUser);
 
 module.exports = usersRouter;
