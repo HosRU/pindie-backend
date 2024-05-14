@@ -7,7 +7,9 @@ const findAllGames = async (req, res, next) => {
     return;
   }
 
-  req.gamesArray = await games.find({}).populate("categories").populate({
+  req.gamesArray = await games.find({})
+  .populate("categories")
+  .populate({
     path: "users",
     select: "-password",
   });

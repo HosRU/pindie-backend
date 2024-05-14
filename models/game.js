@@ -29,15 +29,15 @@ const gameSchema = new mongoose.Schema({
         required: true
     },
 
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: userModel,
+    }],
+
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: categoryModel,
     }],
-
-    users: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: userModel,
-    }]
 });
 
 gameSchema.statics.findGameByCategory = function (category){
