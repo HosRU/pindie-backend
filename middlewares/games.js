@@ -3,8 +3,8 @@ const games = require("../models/game");
 const findAllGames = async (req, res, next) => {
   if(req.query["categories.name"]){
     req.gamesArray = await games.findGameByCategory(req.query["categories.name"]);
-    next();
-    return;
+    next()
+    return
   }
 
   req.gamesArray = await games.find({})
@@ -13,15 +13,13 @@ const findAllGames = async (req, res, next) => {
     path: "users",
     select: "-password",
   });
-  next();
+  next()
 };
 
 const createGame = async (req, res, next) => {
   console.log("POST /games");
   try {
-    console.log(req.body);
     req.game = await games.create(req.body);
-    console.log(req.game);
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
@@ -37,8 +35,8 @@ const findGameId = async (req, res, next) => {
       .populate({
         path: "users",
         select: "-password",
-      });
-    next();
+      })
+    next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(404).send(JSON.stringify({ message: "Не удалось найти игру" }));
@@ -49,7 +47,7 @@ const updateGame = async (req, res, next) => {
   console.log("PUT /games");
   try {
     req.game = await games.findByIdAndUpdate(req.params.id, req.body);
-    next();
+    next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify({ message: "Ошибка обновления игры" }));
@@ -60,7 +58,7 @@ const deleteGame = async (req, res, next) => {
   console.log("DELETE /games");
   try {
     req.game = await games.findByIdAndDelete(req.params.id);
-    next();
+    next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify({ message: "Ошибка удаления игры" }));
@@ -78,7 +76,7 @@ const checkEmptyFields = async (req, res, next) => {
     res.setHeader("Content-Type", "application/json");
     res.status(400).send(JSON.stringify({ message: "Заполни все поля" }));
   } else {
-    next();
+    next()
   }
 };
 
@@ -93,10 +91,10 @@ const checkIfCategoriesAvaliable = async (req, res, next) => {
   }
 };
 
-const checkIfUsersAreSafe = (req, res) => {
+const checkIfUsersAreSafe = async (req, res, next) => {
   if (!req.body.users) {
     next();
-    return;
+    return
   }
   if (req.body.users.length - 1 === req.game.users.length) {
     next();
@@ -126,7 +124,7 @@ const checkIsGameExists = async (req, res, next) => {
               "Такая игра уже существует",
           }))
     } else {
-        next();
+        next()
     }
 }
 
@@ -139,6 +137,7 @@ if(req.isVoteRequest) {
   next();
   return;
 } 
+
 next();
 }; 
 

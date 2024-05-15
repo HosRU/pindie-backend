@@ -23,8 +23,10 @@ const sendDeleteCategory = (req, res) => {
   res.end(JSON.stringify(req.category));
 };
 
-module.exports = sendAllCategories,
+module.exports = {
+  sendAllCategories,
   sendCreateCategory,
   sendCategoryId,
   sendUpdateCategory,
   sendDeleteCategory
+}
