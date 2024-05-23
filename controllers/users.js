@@ -15,12 +15,12 @@ const sendUserId = (req, res) => {
 
 const sendUpdateUser = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.status(200).send(JSON.stringify({ message: "Пользователь обновлен" }));
+  res.end({ message: "Пользователь обновлен" });
 };
 
 const sendDeleteUser = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.status(200).send(JSON.stringify({ message: "Пользователь удалён" }));
+  res.end(JSON.stringify(req.user));
 };
 
 const sendMe = (req, res) => {

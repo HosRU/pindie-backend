@@ -23,7 +23,7 @@ const createGame = async (req, res, next) => {
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify({ message: "Ошибка создания игры" }));
+    res.status(400).send({ message: "Ошибка создания игры" });
   }
 };
 
@@ -39,7 +39,7 @@ const findGameId = async (req, res, next) => {
     next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(404).send(JSON.stringify({ message: "Не удалось найти игру" }));
+    res.status(404).send({ message: "Не удалось найти игру" });
   }
 };
 
@@ -50,7 +50,7 @@ const updateGame = async (req, res, next) => {
     next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify({ message: "Ошибка обновления игры" }));
+    res.status(400).send({ message: "Ошибка обновления игры" });
   }
 };
 
@@ -61,11 +61,15 @@ const deleteGame = async (req, res, next) => {
     next()
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify({ message: "Ошибка удаления игры" }));
+    res.status(400).send({ message: "Ошибка удаления игры" });
   }
 };
 
 const checkEmptyFields = async (req, res, next) => {
+  if(req.isVoteRequest) {
+    next();
+    return;
+  } 
   if (
     !req.body.title ||
     !req.body.description ||
@@ -81,6 +85,10 @@ const checkEmptyFields = async (req, res, next) => {
 };
 
 const checkIfCategoriesAvaliable = async (req, res, next) => {
+  if(req.isVoteRequest) {
+    next();
+    return;
+  } 
   if (!req.body.categories || req.body.categories.length === 0) {
     res.setHeader("Content-Type", "application/json");
     res
@@ -94,7 +102,7 @@ const checkIfCategoriesAvaliable = async (req, res, next) => {
 const checkIfUsersAreSafe = async (req, res, next) => {
   if (!req.body.users) {
     next();
-    return
+    return;
   }
   if (req.body.users.length - 1 === req.game.users.length) {
     next();
@@ -113,30 +121,21 @@ const checkIfUsersAreSafe = async (req, res, next) => {
 };
 
 const checkIsGameExists = async (req, res, next) => {
-    const inArrayGame = req.gamesArray.find((game) => {
-        return req.gamesArray === game;
-    })
-
-    if(inArrayGame){
-        res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({
-            message:
-              "Такая игра уже существует",
-          }))
-    } else {
-        next()
-    }
-}
+  const isInArray = req.gamesArray.find((game) => {
+    return req.body.title === game.title;
+  });
+  if (isInArray) {
+    res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Игра с таким названием уже существует" }));
+  } else {
+    next();
+  }
+}; 
 
 const checkIsVoteRequest = async (req, res, next) => {
 if (Object.keys(req.body).length === 1 && req.body.users) {
   req.isVoteRequest = true;
 }
-
-if(req.isVoteRequest) {
-  next();
-  return;
-} 
 
 next();
 }; 

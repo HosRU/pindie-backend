@@ -11,9 +11,7 @@ const createCategory = async (req, res, next) => {
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res
-      .status(400)
-      .send(JSON.stringify({ message: "Ошибка в создании категории" }));
+    res.status(400).send(JSON.stringify({ message: "Ошибка создания категории" }));
   }
 };
 
@@ -23,9 +21,7 @@ const findCategoryById = async (req, res, next) => {
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res
-      .status(404)
-      .send(JSON.stringify({ message: "Не удалось найти категорию" }));
+    res.status(404).send(JSON.stringify({ message: "Категория не найдена" }));
   }
 };
 
@@ -54,30 +50,21 @@ const deleteCategories = async (req, res, next) => {
 };
 
 const checkIsCategoryExists = async (req, res, next) => {
-  const inArray = await req.categoriesArray.find((category) => {
+  const isInArray = req.categoriesArray.find((category) => {
     return req.body.name === category.name;
   });
-
-  if (inArray) {
+  if (isInArray) {
     res.setHeader("Content-Type", "application/json");
-    res
-      .status(400)
-      .send(
-        JSON.stringify({
-          message: "Категория с таким названием уже существует",
-        })
-      );
+        res.status(400).send(JSON.stringify({ message: "Категория с таким названием уже существует" }));
   } else {
     next();
   }
-};
+}; 
 
 const checkEmptyName = async (req, res, next) => {
   if (!req.body.name) {
     res.setHeader("Content-Type", "application/json");
-    res
-      .status(400)
-      .send(JSON.stringify({ message: "Введите название категории" }));
+    res.status(400).send(JSON.stringify({ message: "Введите название категории" }));
   } else {
     next();
   }
