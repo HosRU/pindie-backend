@@ -15,7 +15,7 @@ const sendGameById = (req, res) => {
 
 const sendGameUpdate = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end({ message: "Игра обновлена" });
+  res.send({ message: "Игра обновлена" });
 };
 
 const sendDeleteGame = (req, res) => {
